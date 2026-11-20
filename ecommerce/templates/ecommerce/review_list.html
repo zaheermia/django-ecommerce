@@ -1,0 +1,61 @@
+{% extends 'ecommerce/base.html' %}
+
+{% block content %}
+    {% if is_vendor %}
+        <h1>Reviews for My Products</h1>
+    {% else %}
+        <h1>My Reviews</h1>
+    {% endif %}
+
+    <h2>Summary</h2>
+    <ul>
+        <li>Total reviews: {{ stats.total }}</li>
+        <li>Average rating: {% if stats.average %}{{ stats.average|floatformat:1 }}/5{% else %}-{% endif %}</li>
+        <li>Verified: {{ stats.verified }}</li>
+        <li>Unverified: {{ stats.unverified }}</li>
+    </ul>
+
+    {% if is_vendor %}
+        <h2>By product</h2>
+        <table border="1" cellpadding="5">
+            <tr>
+                <th>Product</th>
+                <th>Reviews</th>
+                <th>Average rating</th>
+            </tr>
+            {% for product in products %}
+                <tr>
+                    <td><a href="{% url 'product_detail' product.id %}">{{ product.name }}</a></td>
+                    <td>{{ product.review_count }}</td>
+                    <td>{% if product.average %}{{ product.average|floatformat:1 }}/5{% else %}-{% endif %}</td>
+                </tr>
+            {% empty %}
+                <tr><td colspan="3">You don't have any products yet.</td></tr>
+            {% endfor %}
+        </table>
+    {% endif %}
+
+    <h2>All reviews</h2>
+    {% for review in reviews %}
+        <p>
+            <b>{{ review.rating }}/5</b> for
+            <a href="{% url 'product_detail' review.product.id %}">{{ review.product.name }}</a>
+            {% if is_vendor %}by {{ review.buyer.username }}{% endif %}
+            {% if review.verified %}
+                <span style="color: green;">(Verified purchase)</span>
+            {% else %}
+                <span style="color: grey;">(Unverified)</span>
+            {% endif %}
+            <br>
+            {{ review.comment }}
+            <br>
+            <small>{{ review.date|date:"d M Y" }}</small>
+            {% if not is_vendor %}
+                <a href="{% url 'edit_review' review.id %}">Edit</a>
+                <a href="{% url 'delete_review' review.id %}">Delete</a>
+            {% endif %}
+        </p>
+    {% empty %}
+        <p>There are no reviews yet.</p>
+    {% endfor %}
+{% endblock %}

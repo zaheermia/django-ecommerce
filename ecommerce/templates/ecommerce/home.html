@@ -1,0 +1,23 @@
+{% extends 'ecommerce/base.html' %}
+
+{% block content %}
+    <h1>Welcome to the shop</h1>
+    <p>Use the links below or the menu at the top.</p>
+
+    <ul>
+        <li><a href="{% url 'vendor_list' %}">Vendors</a> - see who sells on the site</li>
+        <li><a href="{% url 'store_list' %}">Stores</a> - see all the stores</li>
+        <li><a href="{% url 'product_list' %}">Products</a> - see all the products</li>
+
+        {% if perms.ecommerce.add_store %}
+            <li><a href="{% url 'my_stores' %}">My Stores</a> - add, edit and delete your stores</li>
+            <li><a href="{% url 'my_products' %}">My Products</a> - add, edit and delete your products</li>
+            <li><a href="{% url 'review_list' %}">Reviews</a> - see the reviews for your products</li>
+        {% endif %}
+
+        {% if perms.ecommerce.add_order %}
+            <li><a href="{% url 'cart' %}">Cart</a> - see your cart and checkout</li>
+            <li><a href="{% url 'review_list' %}">My Reviews</a> - edit or delete your reviews</li>
+        {% endif %}
+    </ul>
+{% endblock %}

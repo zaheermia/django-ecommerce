@@ -1,0 +1,14 @@
+{% extends 'ecommerce/base.html' %}
+
+{% block content %}
+    <h1>Vendors</h1>
+
+    {% for vendor in vendors %}
+        <p>
+            <a href="{% url 'vendor_detail' vendor.id %}"><b>{{ vendor.username }}</b></a>
+            - {{ vendor.store_count }} store{{ vendor.store_count|pluralize }}
+        </p>
+    {% empty %}
+        <p>There are no vendors yet.</p>
+    {% endfor %}
+{% endblock %}

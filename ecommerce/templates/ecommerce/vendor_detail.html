@@ -1,0 +1,16 @@
+{% extends 'ecommerce/base.html' %}
+
+{% block content %}
+    <h1>{{ vendor.username }}'s Stores</h1>
+
+    {% for store in stores %}
+        <p>
+            <a href="{% url 'store_detail' store.id %}"><b>{{ store.name }}</b></a>
+            - {{ store.description }}
+        </p>
+    {% empty %}
+        <p>This vendor doesn't have any stores yet.</p>
+    {% endfor %}
+
+    <p><a href="{% url 'vendor_list' %}">Back to vendors</a></p>
+{% endblock %}

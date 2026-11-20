@@ -1,0 +1,26 @@
+{% extends 'ecommerce/base.html' %}
+
+{% block content %}
+    <h1>{{ store.name }}</h1>
+    <p>{{ store.description }}</p>
+    <p>Owned by {{ store.vendor.username }}</p>
+
+    {% if store.vendor == user %}
+        <p><a href="{% url 'add_product' store.id %}">+ Add a product</a></p>
+    {% endif %}
+
+    <h2>Products</h2>
+    {% for product in products %}
+        <p>
+            <a href="{% url 'product_detail' product.id %}"><b>{{ product.name }}</b></a>
+            - R{{ product.price }} ({{ product.stock }} in stock)
+
+            {% if store.vendor == user %}
+                <a href="{% url 'edit_product' product.id %}">Edit</a>
+                <a href="{% url 'delete_product' product.id %}">Delete</a>
+            {% endif %}
+        </p>
+    {% empty %}
+        <p>This store doesn't have any products yet.</p>
+    {% endfor %}
+{% endblock %}

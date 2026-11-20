@@ -1,0 +1,24 @@
+{% extends 'ecommerce/base.html' %}
+
+{% block content %}
+    {% if store %}
+        <h1>Edit Store</h1>
+    {% else %}
+        <h1>Add a Store</h1>
+    {% endif %}
+
+    {% if error %}
+        <p class="error">{{ error }}</p>
+    {% endif %}
+
+    <form method="post">
+        {% csrf_token %}
+        <p>Name: <input type="text" name="name" value="{{ name|default:'' }}"></p>
+        <p>Description:<br>
+            <textarea name="description" rows="4" cols="40">{{ description|default:'' }}</textarea>
+        </p>
+        <button type="submit">Save</button>
+    </form>
+
+    <p><a href="{% url 'my_stores' %}">Back</a></p>
+{% endblock %}

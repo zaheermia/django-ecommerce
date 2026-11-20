@@ -1,0 +1,17 @@
+{% extends 'ecommerce/base.html' %}
+
+{% block content %}
+    <h1>My Stores</h1>
+    <p><a href="{% url 'add_store' %}">+ Add a new store</a></p>
+
+    {% for store in stores %}
+        <p>
+            <a href="{% url 'store_detail' store.id %}"><b>{{ store.name }}</b></a>
+            <a href="{% url 'add_product' store.id %}">Add Product</a>
+            <a href="{% url 'edit_store' store.id %}">Edit</a>
+            <a href="{% url 'delete_store' store.id %}">Delete</a>
+        </p>
+    {% empty %}
+        <p>You don't have any stores yet.</p>
+    {% endfor %}
+{% endblock %}

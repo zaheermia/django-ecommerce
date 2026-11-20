@@ -1,0 +1,21 @@
+{% extends 'ecommerce/base.html' %}
+
+{% block content %}
+    <h1>Posts from r/{{ subreddit }}</h1>
+
+    {% if posts is None %}
+        <p class="error">Sorry, we couldn't load the Reddit posts right now. Please try again later.</p>
+    {% else %}
+        <ul>
+            {% for post in posts %}
+                <li>
+                    <strong>{{ post.title }}</strong><br>
+                    by {{ post.author }}<br>
+                    <a href="{{ post.url }}" target="_blank" rel="noopener">View Post</a>
+                </li>
+            {% empty %}
+                <li>No posts found.</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endblock %}

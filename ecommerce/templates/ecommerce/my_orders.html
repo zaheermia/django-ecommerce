@@ -1,0 +1,14 @@
+{% extends 'ecommerce/base.html' %}
+
+{% block content %}
+    <h1>My Orders</h1>
+
+    {% for order in orders %}
+        <p>
+            <a href="{% url 'order_detail' order.id %}">Order {{ order.id }}</a>
+            - {{ order.date|date:"d M Y" }} - R{{ order.total }}
+        </p>
+    {% empty %}
+        <p>You haven't ordered anything yet.</p>
+    {% endfor %}
+{% endblock %}

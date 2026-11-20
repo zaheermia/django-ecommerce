@@ -1,0 +1,14 @@
+{% extends 'ecommerce/base.html' %}
+
+{% block content %}
+    <h1>Stores</h1>
+
+    {% for store in stores %}
+        <p>
+            <a href="{% url 'store_detail' store.id %}"><b>{{ store.name }}</b></a>
+            - {{ store.description }}
+        </p>
+    {% empty %}
+        <p>There are no stores yet.</p>
+    {% endfor %}
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends 'ecommerce/base.html' %}
+
+{% block content %}
+    <h1>Delete {{ thing }}?</h1>
+    <p>Are you sure you want to delete <b>{{ thing }}</b>? This can't be undone.</p>
+
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Yes, delete it</button>
+    </form>
+
+    <p><a href="{{ back_url }}">No, go back</a></p>
+{% endblock %}

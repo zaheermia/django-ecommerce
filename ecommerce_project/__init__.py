@@ -1,0 +1,1 @@
+"""The eCommerce project package."""

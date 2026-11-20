@@ -1,0 +1,26 @@
+{% extends 'ecommerce/base.html' %}
+
+{% block content %}
+    <h1>Invoice - Order {{ order.id }}</h1>
+    <p>Date: {{ order.date|date:"d M Y H:i" }}</p>
+    <p>Buyer: {{ order.buyer.username }} ({{ order.buyer.email }})</p>
+
+    <table border="1" cellpadding="5">
+        <tr>
+            <th>Product</th>
+            <th>Price</th>
+            <th>Quantity</th>
+        </tr>
+        {% for item in items %}
+            <tr>
+                <td>{{ item.product_name }}</td>
+                <td>R{{ item.price }}</td>
+                <td>{{ item.quantity }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+
+    <h3>Total: R{{ order.total }}</h3>
+
+    <p><a href="{% url 'my_orders' %}">Back to my orders</a></p>
+{% endblock %}

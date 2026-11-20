@@ -1,0 +1,15 @@
+{% extends 'ecommerce/base.html' %}
+
+{% block content %}
+    <h1>Products</h1>
+
+    {% for product in products %}
+        <p>
+            <a href="{% url 'product_detail' product.id %}"><b>{{ product.name }}</b></a>
+            - R{{ product.price }}
+            (from <a href="{% url 'store_detail' product.store.id %}">{{ product.store.name }}</a>)
+        </p>
+    {% empty %}
+        <p>There are no products yet.</p>
+    {% endfor %}
+{% endblock %}

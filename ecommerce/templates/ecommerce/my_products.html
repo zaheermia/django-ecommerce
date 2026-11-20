@@ -1,0 +1,24 @@
+{% extends 'ecommerce/base.html' %}
+
+{% block content %}
+    <h1>My Products</h1>
+
+    {% for item in store_products %}
+        <h2>{{ item.store.name }}</h2>
+        <p><a href="{% url 'add_product' item.store.id %}">+ Add Product</a></p>
+
+        {% for product in item.products %}
+            <p>
+                <a href="{% url 'product_detail' product.id %}"><b>{{ product.name }}</b></a>
+                - R{{ product.price }} ({{ product.stock }} in stock)
+                <a href="{% url 'edit_product' product.id %}">Edit</a>
+                <a href="{% url 'delete_product' product.id %}">Delete</a>
+            </p>
+        {% empty %}
+            <p>No products in this store yet.</p>
+        {% endfor %}
+    {% empty %}
+        <p>You need a store before you can add products.
+            <a href="{% url 'add_store' %}">Add a store</a></p>
+    {% endfor %}
+{% endblock %}
